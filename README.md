@@ -2,6 +2,14 @@
 
 An ordered map for Golang.
 
+This library provides the following functionalities:
+
+- A map which is like a Go standard map.
+- Preserves the order of key insertions, and enables to get map entries in the order.
+- Same methods with Go [sync.Map](https://pkg.go.dev/sync#Map) except CompareAndDelete and CompareAndSwap. (Not support concurrent use.)
+- Logical deletions, because Store and Delete are slower than Go standard map.
+
+
 ## Importing this package
 
 ```
