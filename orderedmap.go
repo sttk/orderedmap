@@ -2,7 +2,7 @@
 // This program is free software under MIT License.
 // See the file LICENSE in this distribution for more details.
 
-// Package orderedmap provides OrderedMap type which is a map presering the
+// Package orderedmap provides Map type which is a map presering the
 // order of key insertions.
 //
 // # Usage
@@ -42,7 +42,7 @@
 //	}
 package orderedmap
 
-// OrderedMap is a struct which represents a map similar with Go standard map,
+// Map is a struct which represents a map similar with Go standard map,
 // or sync.Map, but preserves the order in which keys were inserted.
 //
 // This map has same methods with sync.Map except CompareAndDelete and
@@ -51,7 +51,7 @@ package orderedmap
 // processing order is same with the order of key insertions.
 // And this map also has methods: Front and Back, which iterate this map
 // entries in the order of key insertions and in that reverse order.
-type OrderedMap[K comparable, V any] struct {
+type Map[K comparable, V any] struct {
 	m    map[K](*Entry[K, V])
 	head *Entry[K, V]
 	last *Entry[K, V]
@@ -70,17 +70,17 @@ type Entry[K comparable, V any] struct {
 }
 
 // New is a function which creates a new ordered map, which is ampty.
-func New[K comparable, V any]() OrderedMap[K, V] {
-	return OrderedMap[K, V]{m: make(map[K](*Entry[K, V]))}
+func New[K comparable, V any]() Map[K, V] {
+	return Map[K, V]{m: make(map[K](*Entry[K, V]))}
 }
 
 // Len is a method which returns the number of entries in this map.
-func (om *OrderedMap[K, V]) Len() int {
+func (om *Map[K, V]) Len() int {
 	return om.len
 }
 
 // Store is a method which sets a value for a key
-func (om *OrderedMap[K, V]) Store(key K, value V) {
+func (om *Map[K, V]) Store(key K, value V) {
 	ent, exists := om.m[key]
 	if exists {
 		if !ent.deleted {
@@ -111,7 +111,7 @@ func (om *OrderedMap[K, V]) Store(key K, value V) {
 
 // Swap is a method which sets a value for a key. If the key was present, this
 // map returns the previous value and the loaded flag which is set to true.
-func (om *OrderedMap[K, V]) Swap(key K, value V) (previous V, loaded bool) {
+func (om *Map[K, V]) Swap(key K, value V) (previous V, loaded bool) {
 	ent, exists := om.m[key]
 	if exists {
 		if !ent.deleted {
@@ -144,7 +144,7 @@ func (om *OrderedMap[K, V]) Swap(key K, value V) (previous V, loaded bool) {
 
 // Load is a method which returns a value stored in this map for a key.
 // If no value was found for a key, the ok result is false.
-func (om *OrderedMap[K, V]) Load(key K) (value V, ok bool) {
+func (om *Map[K, V]) Load(key K) (value V, ok bool) {
 	ent, exists := om.m[key]
 	if exists {
 		if !ent.deleted {
@@ -158,7 +158,7 @@ func (om *OrderedMap[K, V]) Load(key K) (value V, ok bool) {
 // LoadOrStore is a method which returns a value for a key if presents,
 // otherwise stores and returns a given value.
 // The loaded flag is true if the value was loaded, false if stored.
-func (om *OrderedMap[K, V]) LoadOrStore(key K, value V) (actual V, loaded bool) {
+func (om *Map[K, V]) LoadOrStore(key K, value V) (actual V, loaded bool) {
 	ent, exists := om.m[key]
 	if exists {
 		if !ent.deleted {
@@ -192,7 +192,7 @@ func (om *OrderedMap[K, V]) LoadOrStore(key K, value V) (actual V, loaded bool) 
 }
 
 // Delete is a method which deletes a value for a key.
-func (om *OrderedMap[K, V]) Delete(key K) {
+func (om *Map[K, V]) Delete(key K) {
 	ent, exists := om.m[key]
 	if !exists {
 		return
@@ -219,7 +219,7 @@ func (om *OrderedMap[K, V]) Delete(key K) {
 }
 
 // Ldelete is a method which logically deletes a value for a key.
-func (om *OrderedMap[K, V]) Ldelete(key K) {
+func (om *Map[K, V]) Ldelete(key K) {
 	ent, exists := om.m[key]
 	if !exists {
 		return
@@ -250,7 +250,7 @@ func (om *OrderedMap[K, V]) Ldelete(key K) {
 // LoadAndDelete is a method which deletes a value for a key, and returns the
 // previous value if any.
 // The loaded flag is true if the key was present.
-func (om *OrderedMap[K, V]) LoadAndDelete(key K) (value V, loaded bool) {
+func (om *Map[K, V]) LoadAndDelete(key K) (value V, loaded bool) {
 	ent, exists := om.m[key]
 	if !exists {
 		return
@@ -283,7 +283,7 @@ func (om *OrderedMap[K, V]) LoadAndDelete(key K) (value V, loaded bool) {
 // LoadAndLdelete is a method which logically deletes a value for a key, and
 // returns the previous value if any.
 // The loaded flag is true if the key was present.
-func (om *OrderedMap[K, V]) LoadAndLdelete(key K) (value V, loaded bool) {
+func (om *Map[K, V]) LoadAndLdelete(key K) (value V, loaded bool) {
 	ent, exists := om.m[key]
 	if !exists {
 		return
@@ -315,7 +315,7 @@ func (om *OrderedMap[K, V]) LoadAndLdelete(key K) (value V, loaded bool) {
 // Range is a method which calls the specified function: fn sequentially for
 // each key and value in this map.
 // If fn returns false, this method stops the iteration.
-func (om *OrderedMap[K, V]) Range(fn func(key K, value V) bool) {
+func (om *Map[K, V]) Range(fn func(key K, value V) bool) {
 	for entry := om.head; entry != nil; entry = entry.next {
 		if !fn(entry.key, entry.value) {
 			break
@@ -324,12 +324,12 @@ func (om *OrderedMap[K, V]) Range(fn func(key K, value V) bool) {
 }
 
 // Front is a method which returns the head entry of this map.
-func (om *OrderedMap[K, V]) Front() *Entry[K, V] {
+func (om *Map[K, V]) Front() *Entry[K, V] {
 	return om.head
 }
 
 // Back is a method which returns the last entry of this map.
-func (om *OrderedMap[K, V]) Back() *Entry[K, V] {
+func (om *Map[K, V]) Back() *Entry[K, V] {
 	return om.last
 }
 
