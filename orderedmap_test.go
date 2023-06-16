@@ -1,9 +1,11 @@
 package orderedmap_test
 
 import (
+	"fmt"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/sttk-go/orderedmap"
-	"testing"
 )
 
 type foo struct {
@@ -1335,6 +1337,150 @@ func TestLoadAndLdelete(t *testing.T) {
 	v, ok = om.Load("foo-2")
 	assert.False(t, ok)
 
+	assert.Nil(t, om.Front())
+	assert.Nil(t, om.Back())
+}
+
+func TestLoadOrStoreFunc(t *testing.T) {
+	om := orderedmap.New[string, foo]()
+	assert.Equal(t, om.Len(), 0)
+	assert.Nil(t, om.Front())
+	assert.Nil(t, om.Back())
+
+	v, loaded, err := om.LoadOrStoreFunc("foo-0", func() (foo, error) {
+		return foo{S: "A", N: 1}, nil
+	})
+	assert.Nil(t, err)
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{S: "A", N: 1})
+	assert.Equal(t, om.Len(), 1)
+
+	v, loaded = om.Load("foo-0")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "A", N: 1})
+	ent := om.Front()
+	assert.Equal(t, ent.Key(), "foo-0")
+	assert.Equal(t, ent.Value(), foo{S: "A", N: 1})
+	ent = ent.Next()
+	assert.Nil(t, ent)
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-0", func() (foo, error) {
+		return foo{S: "AA", N: 11}, nil
+	})
+	assert.Nil(t, err)
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "A", N: 1})
+	assert.Equal(t, om.Len(), 1)
+
+	v, loaded = om.Load("foo-0")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "A", N: 1})
+	ent = om.Front()
+	assert.Equal(t, ent.Key(), "foo-0")
+	assert.Equal(t, ent.Value(), foo{S: "A", N: 1})
+	ent = ent.Next()
+	assert.Nil(t, ent)
+
+	om.Ldelete("foo-0")
+	assert.Equal(t, om.Len(), 0)
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-0", func() (foo, error) {
+		return foo{S: "AAA", N: 111}, nil
+	})
+	assert.Nil(t, err)
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{S: "AAA", N: 111})
+	assert.Equal(t, om.Len(), 1)
+
+	v, loaded = om.Load("foo-0")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "AAA", N: 111})
+	ent = om.Front()
+	assert.Equal(t, ent.Key(), "foo-0")
+	assert.Equal(t, ent.Value(), foo{S: "AAA", N: 111})
+	ent = ent.Next()
+	assert.Nil(t, ent)
+
+	om.Ldelete("foo-0")
+	assert.Equal(t, om.Len(), 0)
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-0", func() (foo, error) {
+		return foo{S: "AAAA", N: 1111}, nil
+	})
+	assert.Nil(t, err)
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{S: "AAAA", N: 1111})
+	assert.Equal(t, om.Len(), 1)
+
+	v, loaded = om.Load("foo-0")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "AAAA", N: 1111})
+	ent = om.Front()
+	assert.Equal(t, ent.Key(), "foo-0")
+	assert.Equal(t, ent.Value(), foo{S: "AAAA", N: 1111})
+	ent = ent.Next()
+	assert.Nil(t, ent)
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-1", func() (foo, error) {
+		return foo{S: "B", N: 2}, nil
+	})
+	assert.Nil(t, err)
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{S: "B", N: 2})
+	assert.Equal(t, om.Len(), 2)
+
+	v, loaded = om.Load("foo-0")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "AAAA", N: 1111})
+	v, loaded = om.Load("foo-1")
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "B", N: 2})
+	ent = om.Front()
+	assert.Equal(t, ent.Key(), "foo-0")
+	assert.Equal(t, ent.Value(), foo{S: "AAAA", N: 1111})
+	ent = ent.Next()
+	assert.Equal(t, ent.Key(), "foo-1")
+	assert.Equal(t, ent.Value(), foo{S: "B", N: 2})
+	ent = ent.Next()
+	assert.Nil(t, ent)
+}
+
+func TestLoadOrStoreFunc_StoreFuncCauseError(t *testing.T) {
+	om := orderedmap.New[string, foo]()
+	assert.Equal(t, om.Len(), 0)
+	assert.Nil(t, om.Front())
+	assert.Nil(t, om.Back())
+
+	v, loaded, err := om.LoadOrStoreFunc("foo-1", func() (foo, error) {
+		return foo{}, fmt.Errorf("error")
+	})
+	assert.Equal(t, err.Error(), "error")
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{})
+	assert.Nil(t, om.Front())
+	assert.Nil(t, om.Back())
+
+	om.Store("foo-1", foo{S: "B", N: 2})
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-1", func() (foo, error) {
+		return foo{}, fmt.Errorf("error")
+	})
+	assert.Nil(t, err)
+	assert.True(t, loaded)
+	assert.Equal(t, v, foo{S: "B", N: 2})
+	ent := om.Front()
+	assert.Equal(t, ent.Key(), "foo-1")
+	assert.Equal(t, ent.Value(), foo{S: "B", N: 2})
+	assert.Nil(t, ent.Next())
+
+	om.Ldelete("foo-1")
+
+	v, loaded, err = om.LoadOrStoreFunc("foo-1", func() (foo, error) {
+		return foo{}, fmt.Errorf("error")
+	})
+	assert.Equal(t, err.Error(), "error")
+	assert.False(t, loaded)
+	assert.Equal(t, v, foo{})
 	assert.Nil(t, om.Front())
 	assert.Nil(t, om.Back())
 }

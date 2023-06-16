@@ -191,6 +191,56 @@ func (om *Map[K, V]) LoadOrStore(key K, value V) (actual V, loaded bool) {
 	return
 }
 
+// LoadOrStoreFunc is a method which returns a value for a key if presents,
+// otherwise executes a give function, then stores and returns the result
+// value.
+// The loaded flag is true if the value was loaded, false if stored.
+func (om *Map[K, V]) LoadOrStoreFunc(
+	key K,
+	fn func() (V, error),
+) (actual V, loaded bool, err error) {
+	ent, exists := om.m[key]
+	if exists {
+		if !ent.deleted {
+			actual = ent.value
+			loaded = true
+			return
+		}
+		ent.deleted = false
+		v, e := fn()
+		if e != nil {
+			err = e
+			return
+		}
+		actual = v
+		ent.value = actual
+	} else {
+		v, e := fn()
+		if e != nil {
+			err = e
+			return
+		}
+		actual = v
+		ent = &Entry[K, V]{key: key, value: actual}
+	}
+
+	if om.len == 0 {
+		om.head = ent
+		om.last = ent
+		om.m[key] = ent
+		om.len = 1
+		return
+	}
+
+	ent.prev = om.last
+	om.last.next = ent
+	om.last = ent
+	om.m[key] = ent
+	om.len++
+
+	return
+}
+
 // Delete is a method which deletes a value for a key.
 func (om *Map[K, V]) Delete(key K) {
 	ent, exists := om.m[key]

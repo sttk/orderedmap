@@ -4,10 +4,10 @@ An ordered map for Golang.
 
 This library provides the following functionalities:
 
-- A map which is like a Go standard map.
-- Preserves the order of key insertions, and enables to get map entries in the order.
-- Same methods with Go [sync.Map](https://pkg.go.dev/sync#Map) except CompareAndDelete and CompareAndSwap. (Not support concurrent use.)
-- Logical deletions, because Store and Delete are slower than Go standard map.
+- A map which is like a Go standard map, and provide same methods with Go [sync.Map](https://pkg.go.dev/sync#Map) except `CompareAndDelete` and `CompareAndSwap`. (Concurrent use is not supported.)
+- `Front` and `Back` methods that iterates map entries in the order of key insertions.
+- `Ldelete` and `LoadAndLdelete` methods for logical deletions, because Store and Delete are slower than Go standard map.
+- `LoadOrStoreFunc` method which stores a result of a give function when an entry for the specified key is not present.
 
 
 ## Importing this package
@@ -32,11 +32,11 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk-go/orderedmap	0.125s	coverage: 100.0% of statements
+ok  	github.com/sttk-go/orderedmap	0.127s	coverage: 100.0% of statements
 
 Now using version go1.19.5
 go version go1.19.5 darwin/amd64
-ok  	github.com/sttk-go/orderedmap	0.126s	coverage: 100.0% of statements
+ok  	github.com/sttk-go/orderedmap	0.129s	coverage: 100.0% of statements
 
 Now using version go1.20
 go version go1.20 darwin/amd64
