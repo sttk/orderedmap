@@ -13,14 +13,14 @@ This library provides the following functionalities:
 ## Importing this package
 
 ```
-import "github.com/sttk-go/orderedmap"
+import "github.com/sttk/orderedmap"
 ```
 
 ## Usage
 
 The usage of this framework is described on the overview in the go package document.
 
-See https://pkg.go.dev/github.com/sttk-go/orderedmap#pkg-overview.
+See https://pkg.go.dev/github.com/sttk/orderedmap#pkg-overview.
 
 ## Supporting Go versions
 
@@ -32,15 +32,15 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk-go/orderedmap	0.128s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.315s	coverage: 100.0% of statements
 
 Now using version go1.19.10
 go version go1.19.10 darwin/amd64
-ok  	github.com/sttk-go/orderedmap	0.124s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.238s	coverage: 100.0% of statements
 
 Now using version go1.20.5
 go version go1.20.5 darwin/amd64
-ok  	github.com/sttk-go/orderedmap	0.171s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.239s	coverage: 100.0% of statements
 
 Back to go1.20.5
 Now using version go1.20.5
@@ -54,11 +54,11 @@ This program is free software under MIT License.<br>
 See the file LICENSE in this distribution for more details.
 
 
-[repo-url]: https://github.com/sttk-go/orderedmap
-[pkg-dev-img]: https://pkg.go.dev/badge/github.com/sttk-go/orderedmap.svg
-[pkg-dev-url]: https://pkg.go.dev/github.com/sttk-go/orderedmap
-[ci-img]: https://github.com/sttk-go/orderedmap/actions/workflows/go.yml/badge.svg?branch=main
-[ci-url]: https://github.com/sttk-go/orderedmap/actions
+[repo-url]: https://github.com/sttk/orderedmap-go
+[pkg-dev-img]: https://pkg.go.dev/badge/github.com/sttk/orderedmap.svg
+[pkg-dev-url]: https://pkg.go.dev/github.com/sttk/orderedmap
+[ci-img]: https://github.com/sttk/orderedmap-go/actions/workflows/go.yml/badge.svg?branch=main
+[ci-url]: https://github.com/sttk/orderedmap-go/actions
 [mit-img]: https://img.shields.io/badge/license-MIT-green.svg
 [mit-url]: https://opensource.org/licenses/MIT
 
