@@ -1,4 +1,4 @@
-module github.com/sttk-go/orderedmap
+module github.com/sttk/orderedmap
 
 go 1.20
 

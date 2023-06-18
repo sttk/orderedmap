@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/sttk-go/orderedmap"
+	"github.com/sttk/orderedmap"
 )
 
 type foo struct {
