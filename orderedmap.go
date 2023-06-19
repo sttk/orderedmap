@@ -42,6 +42,11 @@
 //	}
 package orderedmap
 
+import (
+	"fmt"
+	"strings"
+)
+
 // Map is a struct which represents a map similar with Go standard map,
 // or sync.Map, but preserves the order in which keys were inserted.
 //
@@ -381,6 +386,21 @@ func (om *Map[K, V]) Front() *Entry[K, V] {
 // Back is a method which returns the last entry of this map.
 func (om *Map[K, V]) Back() *Entry[K, V] {
 	return om.last
+}
+
+// String is a method which returns a string of the content of this map.
+func (om Map[K, V]) String() string {
+	var b strings.Builder
+	b.WriteString("Map[")
+	ent := om.Front()
+	if ent != nil {
+		b.WriteString(fmt.Sprintf("%v:%v", ent.Key(), ent.Value()))
+	}
+	for ent = ent.Next(); ent != nil; ent = ent.Next() {
+		b.WriteString(fmt.Sprintf(" %v:%v", ent.Key(), ent.Value()))
+	}
+	b.WriteString("]")
+	return b.String()
 }
 
 // Prev is a method which returns the previous entry of this entry.
