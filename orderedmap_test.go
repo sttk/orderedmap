@@ -1484,3 +1484,11 @@ func TestLoadOrStoreFunc_StoreFuncCauseError(t *testing.T) {
 	assert.Nil(t, om.Front())
 	assert.Nil(t, om.Back())
 }
+
+func TestString(t *testing.T) {
+	om := orderedmap.New[string, string]()
+	om.Store("key-0", "value-0")
+	om.Store("key-1", "value-1")
+
+	assert.Equal(t, fmt.Sprintf("%v", om), "Map[key-0:value-0 key-1:value-1]")
+}
