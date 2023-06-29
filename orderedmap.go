@@ -24,12 +24,12 @@
 // To delete a map entry is as follows:
 //
 //	om.Delete("bar")
-//	v,, deleted := om.LoadAndDelete("baz")
+//	v, deleted := om.LoadAndDelete("baz")
 //
 // To delete a map entry logically is as follows:
 //
 //	om.Ldelete("bar")
-//	v,, deleted := om.LoadAndLdelete("baz")
+//	v, deleted := om.LoadAndLdelete("baz")
 //
 // To iterate map entries is as folLows. The order is same with key insertions:
 //
@@ -271,6 +271,9 @@ func (om *Map[K, V]) Delete(key K) {
 	} else {
 		om.last = ent.prev
 	}
+
+	ent.next = nil
+	ent.prev = nil
 }
 
 // Ldelete is a method which logically deletes a value for a key.
@@ -330,6 +333,9 @@ func (om *Map[K, V]) LoadAndDelete(key K) (value V, loaded bool) {
 		om.last = ent.prev
 	}
 
+	ent.next = nil
+	ent.prev = nil
+
 	value = ent.value
 	loaded = true
 	return
@@ -362,9 +368,114 @@ func (om *Map[K, V]) LoadAndLdelete(key K) (value V, loaded bool) {
 		om.last = ent.prev
 	}
 
+	ent.next = nil
+	ent.prev = nil
+
 	value = ent.value
 	loaded = true
 	return
+}
+
+// FrontAndDelete is a method which deletes the first entry and returns it.
+// If this map has no entry, this method returns nil
+func (om *Map[K, V]) FrontAndDelete() *Entry[K, V] {
+	ent := om.head
+	if ent == nil {
+		return nil
+	}
+
+	delete(om.m, ent.Key())
+	om.len--
+
+	om.head = ent.next
+
+	if ent.next != nil {
+		ent.next.prev = ent.prev
+	} else {
+		om.last = ent.prev
+	}
+
+	ent.next = nil
+	ent.prev = nil
+
+	return ent
+}
+
+// FrontAndLdelete is a method which logically deletes the first entry and
+// returns it.
+// If this map has no entry, this method returns nil
+func (om *Map[K, V]) FrontAndLdelete() *Entry[K, V] {
+	ent := om.head
+	if ent == nil {
+		return nil
+	}
+
+	ent.deleted = true
+	om.len--
+
+	om.head = ent.next
+
+	if ent.next != nil {
+		ent.next.prev = ent.prev
+	} else {
+		om.last = ent.prev
+	}
+
+	ent.next = nil
+	ent.prev = nil
+
+	return ent
+}
+
+// BackAndDelete is a method which deletes the last entry and returns it.
+// If this map has no entry, this method returns nil
+func (om *Map[K, V]) BackAndDelete() *Entry[K, V] {
+	ent := om.last
+	if ent == nil {
+		return nil
+	}
+
+	delete(om.m, ent.Key())
+	om.len--
+
+	if ent.prev != nil {
+		ent.prev.next = ent.next
+	} else {
+		om.head = ent.next
+	}
+
+	om.last = ent.prev
+
+	ent.next = nil
+	ent.prev = nil
+
+	return ent
+}
+
+// BackAndLdelete is a method which logically deletes the last entry and
+// returns it.
+// If this map has no entry, this method returns nil
+func (om *Map[K, V]) BackAndLdelete() *Entry[K, V] {
+	ent := om.last
+	if ent == nil {
+		return nil
+	}
+
+	ent.deleted = true
+	om.len--
+
+	if ent.prev != nil {
+		ent.prev.next = ent.next
+	} else {
+		om.head = ent.next
+	}
+
+	om.last = ent.prev
+
+	ent.next = nil
+	ent.prev = nil
+
+	return ent
 }
 
 // Range is a method which calls the specified function: fn sequentially for
