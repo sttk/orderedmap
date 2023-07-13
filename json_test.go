@@ -314,14 +314,13 @@ func TestMarshalJSON_variousValueTypes_struct(t *testing.T) {
 	assert.Equal(t, b, []byte(`{"foo":{"S":"aaa","u":"ccc"},"bar":{"S":"ggg","u":"iii"}}`))
 }
 
-// Cause a compile error
-//func TestMarshalJSON_variousKeyTypes_array(t *testing.T) {
-//	arr := []string{"a", "b"}
+// COMPILE ERROR: []string does not satisfy comparable
+// func TestMarshalJSON_variousKeyTypes_array(t *testing.T) {
+// 	arr := []string{"a", "b"}
 //
-//	// []string does not satisfy comparable
-//	om := orderedmap.New[[]string, string]()
-//	om.Store(arr, "foo")
-//}
+// 	om := orderedmap.New[[]string, string]()
+// 	om.Store(arr, "foo")
+// }
 
 func TestMarshalJSON_variousKeyTypes_stringPointer(t *testing.T) {
 	om := orderedmap.New[*string, string]()

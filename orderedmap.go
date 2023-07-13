@@ -2,7 +2,7 @@
 // This program is free software under MIT License.
 // See the file LICENSE in this distribution for more details.
 
-// Package orderedmap provides Map type which is a map presering the
+// Package orderedmap provides Map type which is a map preserving the
 // order of key insertions.
 //
 // # Usage

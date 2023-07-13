@@ -6,7 +6,7 @@ This library provides the following functionalities:
 
 - A map which is like a Go standard map, and provide same methods with Go [sync.Map](https://pkg.go.dev/sync#Map) except `CompareAndDelete` and `CompareAndSwap`. (Concurrent use is not supported.)
 - `Front` and `Back` methods that iterates map entries in the order of key insertions.
-- `Ldelete` and `LoadAndLdelete` methods for logical deletions, because Store and Delete are slower than Go standard map.
+- `Ldelete` and `LoadAndLdelete` methods for logical deletions, because `Store` and `Delete` are slower than Go standard map.
 - `LoadOrStoreFunc` method which stores a result of a give function when an entry for the specified key is not present.
 - `MarshalJSON` and `UnmarshalJSON` methods for JSON serialization and deserialization. These methods are implementations of `json.Marshaler` and `json.Unmarshaler` interfaces.
 
