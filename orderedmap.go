@@ -501,17 +501,17 @@ func (om *Map[K, V]) Back() *Entry[K, V] {
 
 // String is a method which returns a string of the content of this map.
 func (om Map[K, V]) String() string {
-	var b strings.Builder
-	b.WriteString("Map[")
+	var buf strings.Builder
+	buf.WriteString("Map[")
 	ent := om.Front()
 	if ent != nil {
-		b.WriteString(fmt.Sprintf("%v:%v", ent.Key(), ent.Value()))
+		buf.WriteString(fmt.Sprintf("%v:%v", ent.Key(), ent.Value()))
+		for ent = ent.Next(); ent != nil; ent = ent.Next() {
+			buf.WriteString(fmt.Sprintf(" %v:%v", ent.Key(), ent.Value()))
+		}
 	}
-	for ent = ent.Next(); ent != nil; ent = ent.Next() {
-		b.WriteString(fmt.Sprintf(" %v:%v", ent.Key(), ent.Value()))
-	}
-	b.WriteString("]")
-	return b.String()
+	buf.WriteString("]")
+	return buf.String()
 }
 
 // Prev is a method which returns the previous entry of this entry.
