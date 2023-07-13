@@ -66,7 +66,6 @@ func (err UnsupportedKeyTypeError) Error() string {
 // SyntaxError is an error stype which is returned by Unmarshal when an input
 // json does not start with "{" or end with "}", or there are value type
 // mismatches.
-// caused.
 type SyntaxError struct {
 	Offset int64
 	msg    string
