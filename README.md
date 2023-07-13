@@ -8,7 +8,7 @@ This library provides the following functionalities:
 - `Front` and `Back` methods that iterates map entries in the order of key insertions.
 - `Ldelete` and `LoadAndLdelete` methods for logical deletions, because Store and Delete are slower than Go standard map.
 - `LoadOrStoreFunc` method which stores a result of a give function when an entry for the specified key is not present.
-
+- `MarshalJSON` and `UnmarshalJSON` methods for JSON serialization and deserialization. These methods are implementations of `json.Marshaler` and `json.Unmarshaler` interfaces.
 
 ## Importing this package
 
@@ -32,15 +32,15 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.315s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.158s	coverage: 98.8% of statements
 
 Now using version go1.19.10
 go version go1.19.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.238s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.131s	coverage: 98.8% of statements
 
 Now using version go1.20.5
 go version go1.20.5 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.239s	coverage: 100.0% of statements
+ok  	github.com/sttk/orderedmap	0.137s	coverage: 98.8% of statements
 
 Back to go1.20.5
 Now using version go1.20.5
