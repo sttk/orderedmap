@@ -76,31 +76,177 @@ func (err SyntaxError) Error() string {
 }
 
 func addJsonKey(buf *bytes.Buffer, key any) error {
-	quote := false
 	switch key.(type) {
-	default:
-		return UnsupportedKeyTypeError{Type: reflect.TypeOf(key)}
 	case string:
+		buf.WriteString(`"`)
+		buf.WriteString(key.(string))
+		buf.WriteString(`"`)
 	case *string:
 		if key == (*string)(nil) {
-			quote = true
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(*(key.(*string)))
+			buf.WriteString(`"`)
 		}
-	case bool, int, int8, int16, int32, int64, uint, uint8, uint16,
-		uint32, uint64, float32, float64,
-		*bool, *int, *int8, *int16, *int32, *int64, *uint, *uint8, *uint16,
-		*uint32, *uint64, *float32, *float64:
-		quote = true
-	}
-	bs, err := json.Marshal(key)
-	if err != nil {
-		return err
-	}
-	if quote {
+	case bool:
 		buf.WriteString(`"`)
-		buf.Write(bs)
+		buf.WriteString(strconv.FormatBool(key.(bool)))
 		buf.WriteString(`"`)
-	} else {
-		buf.Write(bs)
+	case int:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatInt(int64(key.(int)), 10))
+		buf.WriteString(`"`)
+	case int8:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatInt(int64(key.(int8)), 10))
+		buf.WriteString(`"`)
+	case int16:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatInt(int64(key.(int16)), 10))
+		buf.WriteString(`"`)
+	case int32:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatInt(int64(key.(int32)), 10))
+		buf.WriteString(`"`)
+	case int64:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatInt(int64(key.(int64)), 10))
+		buf.WriteString(`"`)
+	case uint:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatUint(uint64(key.(uint)), 10))
+		buf.WriteString(`"`)
+	case uint8:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatUint(uint64(key.(uint8)), 10))
+		buf.WriteString(`"`)
+	case uint16:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatUint(uint64(key.(uint16)), 10))
+		buf.WriteString(`"`)
+	case uint32:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatUint(uint64(key.(uint32)), 10))
+		buf.WriteString(`"`)
+	case uint64:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatUint(uint64(key.(uint64)), 10))
+		buf.WriteString(`"`)
+	case float32:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatFloat(float64(key.(float32)), 'g', -1, 32))
+		buf.WriteString(`"`)
+	case float64:
+		buf.WriteString(`"`)
+		buf.WriteString(strconv.FormatFloat(key.(float64), 'g', -1, 64))
+		buf.WriteString(`"`)
+	case *bool:
+		if key == (*bool)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatBool(*(key.(*bool))))
+			buf.WriteString(`"`)
+		}
+	case *int:
+		if key == (*int)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatInt(int64(*(key.(*int))), 10))
+			buf.WriteString(`"`)
+		}
+	case *int8:
+		if key == (*int8)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatInt(int64(*(key.(*int8))), 10))
+			buf.WriteString(`"`)
+		}
+	case *int16:
+		if key == (*int16)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatInt(int64(*(key.(*int16))), 10))
+			buf.WriteString(`"`)
+		}
+	case *int32:
+		if key == (*int32)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatInt(int64(*(key.(*int32))), 10))
+			buf.WriteString(`"`)
+		}
+	case *int64:
+		if key == (*int64)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatInt(int64(*(key.(*int64))), 10))
+			buf.WriteString(`"`)
+		}
+	case *uint:
+		if key == (*uint)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatUint(uint64(*(key.(*uint))), 10))
+			buf.WriteString(`"`)
+		}
+	case *uint8:
+		if key == (*uint8)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatUint(uint64(*(key.(*uint8))), 10))
+			buf.WriteString(`"`)
+		}
+	case *uint16:
+		if key == (*uint16)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatUint(uint64(*(key.(*uint16))), 10))
+			buf.WriteString(`"`)
+		}
+	case *uint32:
+		if key == (*uint32)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatUint(uint64(*(key.(*uint32))), 10))
+			buf.WriteString(`"`)
+		}
+	case *uint64:
+		if key == (*uint64)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatUint(uint64(*(key.(*uint64))), 10))
+			buf.WriteString(`"`)
+		}
+	case *float32:
+		if key == (*float32)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatFloat(float64(*(key.(*float32))), 'g', -1, 32))
+			buf.WriteString(`"`)
+		}
+	case *float64:
+		if key == (*float64)(nil) {
+			buf.WriteString(`"null"`)
+		} else {
+			buf.WriteString(`"`)
+			buf.WriteString(strconv.FormatFloat(*(key.(*float64)), 'g', -1, 64))
+			buf.WriteString(`"`)
+		}
+	default:
+		return UnsupportedKeyTypeError{Type: reflect.TypeOf(key)}
 	}
 	return nil
 }
