@@ -18,7 +18,7 @@ import "github.com/sttk/orderedmap"
 
 ## Usage
 
-The usage of this framework is described on the overview in the go package document.
+The usage of this package is described on the overview in the go package document.
 
 See https://pkg.go.dev/github.com/sttk/orderedmap#pkg-overview.
 
@@ -32,15 +32,15 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.158s	coverage: 98.8% of statements
+ok  	github.com/sttk/orderedmap	0.136s	coverage: 99.3% of statements
 
 Now using version go1.19.10
 go version go1.19.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.131s	coverage: 98.8% of statements
+ok  	github.com/sttk/orderedmap	0.132s	coverage: 99.3% of statements
 
 Now using version go1.20.5
 go version go1.20.5 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.137s	coverage: 98.8% of statements
+ok  	github.com/sttk/orderedmap	0.137s	coverage: 99.3% of statements
 
 Back to go1.20.5
 Now using version go1.20.5
