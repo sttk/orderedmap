@@ -16,6 +16,9 @@
 //	om.Store("foo", "hoge")
 //	prev, swapped := om.Swap("bar", "fuga")
 //	actual, loaded := om.LoadOrStore("baz", "fuga")
+//	actual, loaded, err := om.LoadOrStore("baz", func() (string, error) {
+//		return "fuga", nil
+//	})
 //
 // To get a value for a key is as follows:
 //
@@ -31,15 +34,25 @@
 //	om.Ldelete("bar")
 //	v, deleted := om.LoadAndLdelete("baz")
 //
-// To iterate map entries is as folLows. The order is same with key insertions:
+// To iterate map entries is as follows. The order is same with key insertions:
 //
-//	om.Range(func(k, v) bool { ... })
+//	om.Range(func(k, v) bool {
+//	    ...
+//	})
 //	for ent := om.Front(); ent != nil; ent = ent.Next() {
 //	    k := ent.Key(); v : = ent.Value(); ...
 //	}
 //	for ent := om.Back(); ent != nil; ent = ent.Prev() {
 //	    k := ent.Key(); v : = ent.Value(); ...
 //	}
+//
+// To serialize the public contents of this map into a JSON string is as follows:
+//
+//	byteSeq, e := om.MarshalJSON()
+//
+// To deserialize a JSON string into an ordered map is as follows:
+//
+//	e := om.UnmarshalJSON(byteSeq)
 package orderedmap
 
 import (
