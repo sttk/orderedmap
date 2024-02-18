@@ -32,23 +32,31 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.136s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.244s	coverage: 99.3% of statements
 
-Now using version go1.19.10
-go version go1.19.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.132s	coverage: 99.3% of statements
+Now using version go1.19.13
+go version go1.19.13 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.255s	coverage: 99.3% of statements
 
-Now using version go1.20.5
-go version go1.20.5 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.137s	coverage: 99.3% of statements
+Now using version go1.20.14
+go version go1.20.14 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.212s	coverage: 99.3% of statements
 
-Back to go1.20.5
-Now using version go1.20.5
+Now using version go1.21.7
+go version go1.21.7 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.205s	coverage: 99.3% of statements
+
+Now using version go1.22
+go version go1.22.0 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.206s	coverage: 99.3% of statements
+
+Back to go1.22
+Now using version go1.22
 ```
 
 ## License
 
-Copyright (C) 2023 Takayuki Sato
+Copyright (C) 2023-2024 Takayuki Sato
 
 This program is free software under MIT License.<br>
 See the file LICENSE in this distribution for more details.
