@@ -32,41 +32,49 @@ This framework supports Go 1.18 or later.
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.244s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.298s	coverage: 99.3% of statements
 
 Now using version go1.19.13
 go version go1.19.13 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.255s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.363s	coverage: 99.3% of statements
 
 Now using version go1.20.14
 go version go1.20.14 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.212s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.314s	coverage: 99.3% of statements
 
-Now using version go1.21.7
-go version go1.21.7 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.205s	coverage: 99.3% of statements
+Now using version go1.21.13
+go version go1.21.13 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.310s	coverage: 99.3% of statements
 
-Now using version go1.22
-go version go1.22.0 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.206s	coverage: 99.3% of statements
+Now using version go1.22.12
+go version go1.22.12 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.314s	coverage: 99.3% of statements
 
-Back to go1.22
-Now using version go1.22
+Now using version go1.23.10
+go version go1.23.10 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.324s	coverage: 99.3% of statements
+
+Now using version go1.24.4
+go version go1.24.4 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.331s	coverage: 99.3% of statements
+
+Back to go1.24.4
+Now using version go1.24.4
 ```
 
 ## License
 
-Copyright (C) 2023-2024 Takayuki Sato
+Copyright (C) 2023-2025 Takayuki Sato
 
 This program is free software under MIT License.<br>
 See the file LICENSE in this distribution for more details.
 
 
-[repo-url]: https://github.com/sttk/orderedmap-go
+[repo-url]: https://github.com/sttk/orderedmap
 [pkg-dev-img]: https://pkg.go.dev/badge/github.com/sttk/orderedmap.svg
 [pkg-dev-url]: https://pkg.go.dev/github.com/sttk/orderedmap
-[ci-img]: https://github.com/sttk/orderedmap-go/actions/workflows/go.yml/badge.svg?branch=main
-[ci-url]: https://github.com/sttk/orderedmap-go/actions
+[ci-img]: https://github.com/sttk/orderedmap/actions/workflows/go.yml/badge.svg?branch=main
+[ci-url]: https://github.com/sttk/orderedmap/actions?query=branch%3Amain
 [mit-img]: https://img.shields.io/badge/license-MIT-green.svg
 [mit-url]: https://opensource.org/licenses/MIT
 
