@@ -28,38 +28,42 @@ This framework supports Go 1.18 or later.
 
 ### Actual test results for each Go version:
 
-```
+```sh
 % gvm-fav
 Now using version go1.18.10
 go version go1.18.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.298s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.315s	coverage: 99.3% of statements
 
 Now using version go1.19.13
 go version go1.19.13 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.363s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.305s	coverage: 99.3% of statements
 
 Now using version go1.20.14
 go version go1.20.14 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.314s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.315s	coverage: 99.3% of statements
 
 Now using version go1.21.13
 go version go1.21.13 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.310s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.315s	coverage: 99.3% of statements
 
 Now using version go1.22.12
 go version go1.22.12 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.314s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.312s	coverage: 99.3% of statements
 
 Now using version go1.23.10
 go version go1.23.10 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.324s	coverage: 99.3% of statements
+ok  	github.com/sttk/orderedmap	0.316s	coverage: 99.3% of statements
 
-Now using version go1.24.4
-go version go1.24.4 darwin/amd64
-ok  	github.com/sttk/orderedmap	0.331s	coverage: 99.3% of statements
+Now using version go1.24.6
+go version go1.24.6 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.322s	coverage: 99.3% of statements
 
-Back to go1.24.4
-Now using version go1.24.4
+Now using version go1.25.0
+go version go1.25.0 darwin/amd64
+ok  	github.com/sttk/orderedmap	0.325s	coverage: 99.3% of statements
+
+Back to go1.25.0
+Now using version go1.25.0
 ```
 
 ## License
